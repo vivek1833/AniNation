@@ -8,11 +8,13 @@ const Home = () => {
 
   const getAnime = async (e) => {
     e.preventDefault();
-    const res = await fetch(`https://api.jikan.moe/v4/anime?q=${anime}`);
+    const res = await fetch(
+      `https://api-aniwatch.onrender.com/anime/search?q=${anime}`
+    );
 
     const data = await res.json();
     console.log(data);
-    setData(data);
+    setData(data.animes);
   };
 
   return (
@@ -85,20 +87,20 @@ const Home = () => {
         </Container>
 
         {/* Anime shows */}
-        {data.data ? (
+        {data ? (
           <Container className="mt-5">
             <Row className="justify-content-center">
-              {data.data.map((item) => (
+              {data.map((item) => (
                 <Col
                   md={3}
                   sm={12}
                   lg={3}
                   xl={3}
                   className="mt-3"
-                  key={item.mal_id}>
-                  <Link to={`/anime/${item.title}`}>
+                  key={item.id}>
+                  <Link to={`/anime/${item.id}`}>
                     <Image
-                      src={item.images.jpg.image_url}
+                      src={item.poster}
                       fluid
                       className="mx-auto d-block"
                     />

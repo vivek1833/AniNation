@@ -9,10 +9,12 @@ const Episode = () => {
 
   const getEpisode = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/anime-details/${title}`);
+      const response = await fetch(
+        `https://api-aniwatch.onrender.com/anime/episode-srcs?id=${title}?ep=1`
+      );
       const jsonData = await response.json();
-      setEpisode(jsonData);
-      console.log(jsonData);
+      setEpisode(jsonData.sources);
+      console.log(episode[0]);
     } catch (err) {
       console.error(err.message);
     }
@@ -28,13 +30,7 @@ const Episode = () => {
         <Row>
           <Col>
             <h1>Episodes</h1>
-            {/* <iframe
-              src={episode}
-              title="video"
-              width="100%"
-              height="500"
-              frameborder="0"
-              allowFullScreen></iframe> */}
+            {/* <iframe src={episode[0]}></iframe> */}
           </Col>
         </Row>
       </Container>
