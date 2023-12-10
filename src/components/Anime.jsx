@@ -55,7 +55,7 @@ const Anime = () => {
               <Col>
                 <h3>More Season of {info.anime.info.name}</h3>
                 {info.seasons.map((anime) => (
-                  <Link to={`/anime/${anime.id}`}>
+                  <Link to={`/anime/${anime.id}`} key={anime.id}>
                     <Image src={anime.poster} fluid className="m-2" />
                   </Link>
                 ))}

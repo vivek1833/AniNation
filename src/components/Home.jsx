@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Button, Image, Form } from "react-bootstrap";
+import Navbar from "./Navbar";
 
 const Home = () => {
   const [anime, setAnime] = useState([]);
@@ -24,31 +25,7 @@ const Home = () => {
           <h1>AniPlay</h1>
         </Container>
 
-        {/* Home , Trending , Movies, About */}
-        <Container className="mt-3">
-          <Row md="auto" className="justify-content-center text-center">
-            <Col>
-              <Link to="/home" className="text-white text-decoration-none">
-                Home
-              </Link>
-            </Col>
-            <Col>
-              <Link to="/trending" className="text-white text-decoration-none">
-                Trending
-              </Link>
-            </Col>
-            <Col>
-              <Link to="/movies" className="text-white text-decoration-none">
-                Movies
-              </Link>
-            </Col>
-            <Col>
-              <Link to="/about" className="text-white text-decoration-none">
-                About
-              </Link>
-            </Col>
-          </Row>
-        </Container>
+        <Navbar />
 
         {/* Search Bar */}
         <Container className="mt-4">
@@ -73,21 +50,7 @@ const Home = () => {
           </Row>
         </Container>
 
-        {/* Anime Image */}
-        <Container>
-          <Row className="bgImg justify-content-center">
-            <Col md={5} sm={12} lg={5} xl={5}>
-              <Image
-                src="https://s2.bunnycdn.ru/assets/t1/s1/imagesv3/bg-index-top1.png"
-                fluid
-                className="mx-auto d-block"
-              />
-            </Col>
-          </Row>
-        </Container>
-
-        {/* Anime shows */}
-        {data ? (
+        {data.length ? (
           <Container className="mt-5">
             <Row className="justify-content-center">
               {data.map((item) => (
@@ -102,6 +65,7 @@ const Home = () => {
                     <Image
                       src={item.poster}
                       fluid
+                      loading="lazy"
                       className="mx-auto d-block"
                     />
                   </Link>
@@ -110,7 +74,17 @@ const Home = () => {
             </Row>
           </Container>
         ) : (
-          ""
+          <Container>
+            <Row className="bgImg justify-content-center">
+              <Col md={5} sm={12} lg={5} xl={5}>
+                <Image
+                  src="https://s2.bunnycdn.ru/assets/t1/s1/imagesv3/bg-index-top1.png"
+                  fluid
+                  className="mx-auto d-block"
+                />
+              </Col>
+            </Row>
+          </Container>
         )}
       </Row>
     </Container>
