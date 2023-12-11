@@ -14,7 +14,6 @@ const Home = () => {
     );
 
     const data = await res.json();
-    console.log(data);
     setData(data.animes);
   };
 
@@ -59,7 +58,7 @@ const Home = () => {
                   sm={12}
                   lg={3}
                   xl={3}
-                  className="mt-3"
+                  className="mt-3 homeItem"
                   key={item.id}>
                   <Link to={`/anime/${item.id}`}>
                     <Image

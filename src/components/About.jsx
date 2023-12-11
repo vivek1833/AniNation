@@ -13,6 +13,7 @@ const About = () => {
         </Row>
 
         <Navbar />
+        <hr />
 
         <Row>
           <Col>

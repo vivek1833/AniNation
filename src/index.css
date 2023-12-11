@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
   color: #fff;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 body {
@@ -18,4 +19,8 @@ body {
   width: 100;
   position: relative;
   overflow: hidden;
+}
+
+.homeItem:hover {
+  transform:  scale(1.1);
 }

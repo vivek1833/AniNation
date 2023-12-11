@@ -9,11 +9,10 @@ const Player = (props) => {
   const getLink = async () => {
     try {
       const response = await fetch(
-        `https://api-aniwatch.onrender.com/anime/episode-srcs?id=${props.id}?server=vidstreaming&category=dub`
+        `https://api-aniwatch.onrender.com/anime/episode-srcs?id=${props.id}&server=vidstreaming&category=sub`
       );
       const jsonData = await response.json();
       setLink(jsonData.sources);
-      console.log(jsonData.sources);
     } catch (err) {
       console.error(err.message);
     }
@@ -21,7 +20,7 @@ const Player = (props) => {
 
   useEffect(() => {
     getLink();
-  }, []);
+  }, [props.id]);
 
   return (
     <>
@@ -29,7 +28,6 @@ const Player = (props) => {
         {link.length ? (
           <ReactHlsPlayer
             src={link[0].url}
-            autoPlay={true}
             controls={true}
             width="100%"
             height="auto"

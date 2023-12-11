@@ -13,6 +13,7 @@ const Movies = () => {
         </Row>
 
         <Navbar />
+        <hr />
         <Row>
           <Col>
             <h1 className="text-center">Movies</h1>
