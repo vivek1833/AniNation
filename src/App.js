@@ -4,7 +4,7 @@ import Home from "./components/Home";
 import Anime from "./components/Anime";
 import Episode from "./components/Episode";
 import Trending from "./components/Trending";
-import Movies from "./components/Movies";
+import Latest from "./components/Latest";
 import About from "./components/About";
 
 const App = () => {
@@ -15,7 +15,7 @@ const App = () => {
         <Route path="/anime/:title" element={<Anime />} />
         <Route path="/watch/:title" element={<Episode />} />
         <Route path="/trending" element={<Trending />} />
-        <Route path="/movies" element={<Movies />} />
+        <Route path="/latest" element={<Latest />} />
         <Route path="/about" element={<About />} />
       </Routes>
     </BrowserRouter>

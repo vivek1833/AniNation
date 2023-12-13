@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Container, Row, Col, Button, Image, Form } from "react-bootstrap";
+import { Container, Row, Col, Button, Image } from "react-bootstrap";
+import Navbar from "./Navbar";
 
 const Anime = () => {
   const { title } = useParams();
@@ -19,11 +20,13 @@ const Anime = () => {
       setLoading(false);
     };
     getAnime();
-  }, []);
+  }, [title]);
 
   return (
     <>
       <Container className="mt-5">
+        <Navbar />
+        <hr />
         {loading ? (
           <Container className="text-center">
             <h1>Loading...</h1>
@@ -36,7 +39,10 @@ const Anime = () => {
               </Col>
               <Col md={8} sm={12} lg={8} xl={8}>
                 <h1>{info.anime.info.name}</h1>
-                <p>{info.anime.info.description.substring(0, 200)}...</p>
+                {/* Different for mobile and dekstop */}
+                <p className="d-none d-md-block">
+                  {info.anime.info.description}
+                </p>
               </Col>
 
               <Col>
@@ -52,7 +58,11 @@ const Anime = () => {
 
             <Row>
               <Col>
-                <h3>More Season of {info.anime.info.name}</h3>
+                {info.seasons.length !== 0 ? (
+                  <h3>More Season of {info.anime.info.name}</h3>
+                ) : (
+                  ""
+                )}
                 {info.seasons.map((anime) => (
                   <Link to={`/anime/${anime.id}`} key={anime.id}>
                     <Image src={anime.poster} fluid className="m-2" />

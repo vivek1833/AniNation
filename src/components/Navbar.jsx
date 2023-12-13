@@ -18,8 +18,8 @@ const Navbar = () => {
             </Link>
           </Col>
           <Col>
-            <Link to="/movies" className="text-white text-decoration-none">
-              Movies
+            <Link to="/latest" className="text-white text-decoration-none">
+              Latest
             </Link>
           </Col>
           <Col>

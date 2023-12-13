@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import Player from "./Player";
+import Navbar from "./Navbar";
 
 const Episode = () => {
   const { title } = useParams();
@@ -28,6 +29,10 @@ const Episode = () => {
   return (
     <>
       <Container className="mt-5">
+        <Navbar />
+        <hr />
+        <h1 className="text-center">You are Watching {title}</h1>
+
         {ep ? <Player id={title + ep} /> : ""}
 
         <Row>
