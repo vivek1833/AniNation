@@ -35,7 +35,7 @@ const Home = () => {
                   <Form.Control
                     type="text"
                     placeholder="Search Anime..."
-                    className="text-center mb-2 mt-2 border border-dark shadow p-2 bg-dark text-white rounded-pill"
+                    className="text-center my-2 border border-dark shadow p-2 bg-dark text-white rounded-pill"
                     onChange={(e) => setAnime(e.target.value)}
                   />
                 </Form.Group>

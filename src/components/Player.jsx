@@ -4,6 +4,7 @@ import ReactHlsPlayer from "react-hls-player";
 
 const Player = (props) => {
   const [link, setLink] = useState([]);
+  const [sub, setSub] = useState([]);
 
   // Get a particular episode
   const getLink = async () => {
@@ -13,6 +14,8 @@ const Player = (props) => {
       );
       const jsonData = await response.json();
       setLink(jsonData.sources);
+      setSub(jsonData.subtitles);
+      console.log(jsonData);
     } catch (err) {
       console.error(err.message);
     }
@@ -25,18 +28,24 @@ const Player = (props) => {
   return (
     <>
       <Container className="mt-5">
-        {link.length ? (
+        {link.length && sub.length ? (
+          // Add subtities to the video
           <ReactHlsPlayer
             src={link[0].url}
             controls={true}
             width="100%"
-            height="auto"
-            hlsConfig={{
-              maxLoadingDelay: 4,
-              minAutoBitrate: 0,
-              lowLatencyMode: true,
-            }}
-          />
+            crossOrigin="anonymous"
+            height="auto">
+            <track
+              label={sub[0].lang}
+              kind="subtitles"
+              srcLang={sub[0].lang}
+              src={sub[0].url}
+              default
+            />
+            <controls
+
+          </ReactHlsPlayer>
         ) : (
           ""
         )}
