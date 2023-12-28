@@ -43,8 +43,6 @@ const Player = (props) => {
               src={sub[0].url}
               default
             />
-            <controls
-
           </ReactHlsPlayer>
         ) : (
           ""
