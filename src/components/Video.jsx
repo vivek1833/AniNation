@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import ReactHlsPlayer from "react-hls-player";
 
-const Player = (props) => {
+const Video = (props) => {
   const [link, setLink] = useState([]);
   const [sub, setSub] = useState([]);
 
@@ -15,7 +15,6 @@ const Player = (props) => {
       const jsonData = await response.json();
       setLink(jsonData.sources);
       setSub(jsonData.subtitles);
-      console.log(jsonData);
     } catch (err) {
       console.error(err.message);
     }
@@ -27,22 +26,29 @@ const Player = (props) => {
 
   return (
     <>
-      <Container className="mt-5">
+      <Container fluid className="mt-3">
         {link.length && sub.length ? (
-          // Add subtities to the video
           <ReactHlsPlayer
-            src={link[0].url}
+            src={link[1].url}
             controls={true}
+            autoPlay={true}
             width="100%"
+            height="auto"
             crossOrigin="anonymous"
-            height="auto">
-            <track
-              label={sub[0].lang}
-              kind="subtitles"
-              srcLang={sub[0].lang}
-              src={sub[0].url}
-              default
-            />
+            hlsConfig={{
+              maxMaxBufferLength: 100,
+              maxBufferSize: 100,
+              maxBufferLength: 100,
+            }}>
+            {sub.map((it) => (
+              <track
+                label={it.lang}
+                kind="subtitles"
+                srcLang={it.lang}
+                src={it.url}
+                key={it.lang}
+              />
+            ))}
           </ReactHlsPlayer>
         ) : (
           ""
@@ -52,4 +58,4 @@ const Player = (props) => {
   );
 };
 
-export default Player;
+export default Video;

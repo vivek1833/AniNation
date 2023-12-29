@@ -1,14 +1,15 @@
 * {
   box-sizing: border-box;
-  color: #fff;
+  scroll-behavior: smooth;
+  color: white;
   font-family: 'Courier New', Courier, monospace;
 }
 
 body {
-  margin: 0;
   padding: 0;
+  margin: 0;
   font-family: sans-serif;
-  background-color: #050505;
+  background-color: black;
 }
 
 /* HOME */
@@ -24,3 +25,24 @@ body {
 .homeItem:hover {
   transform:  scale(1.1);
 }
+
+/* VIDEO PLAYER */
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: black;
+}
+
+::-webkit-scrollbar-thumb {
+  background: white;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: yellow;
+}
+
+
+

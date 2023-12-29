@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Image } from "react-bootstrap";
+import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 
@@ -38,27 +38,56 @@ const Trending = () => {
             </Col>
           </Row>
         </Container>
-        <Row>
-          {anime &&
-            anime.map((iter) => (
-              <Col
-                md={3}
-                sm={12}
-                lg={3}
-                xl={3}
-                className="mt-3 homeItem"
-                key={iter.id}>
-                <Link to={`/anime/${iter.id}`}>
-                  <Image
-                    src={iter.poster}
-                    fluid
-                    loading="lazy"
-                    className="mx-auto d-block"
-                  />
-                </Link>
-              </Col>
-            ))}
-        </Row>
+        <Container className="mt-3">
+          <Row className="justify-content-center">
+            {anime &&
+              anime.map((item) => (
+                <Col
+                  xs={6}
+                  sm={6}
+                  md={3}
+                  lg={3}
+                  xl={2}
+                  className="mt-3 homeItem"
+                  key={item.id}>
+                  <Link
+                    to={`/anime/${item.id}`}
+                    className="text-decoration-none text-white">
+                    <Card
+                      className="bg-dark text-white"
+                      style={{
+                        border: "none",
+                        height: "285px",
+                      }}>
+                      <Card.Img
+                        src={item.poster}
+                        alt={item.name}
+                        loading="lazy"
+                        className="mx-auto d-block"
+                        style={{
+                          height: "260px",
+                          objectFit: "cover",
+                        }}
+                      />
+                      <Card.Text
+                        style={{
+                          fontSize: "12px",
+                          fontWeight: "bold",
+                          fontFamily: "sans-serif",
+                          textAlign: "center",
+                          marginTop: "2px",
+                        }}>
+                        {item.name.length < 23
+                          ? item.name
+                          : item.name.substr(0, 23) + "..."}
+                      </Card.Text>
+                    </Card>
+                  </Link>
+                </Col>
+              ))}
+          </Row>
+        </Container>
+        <hr className="mt-2" />
       </Container>
     </>
   );

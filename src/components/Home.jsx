@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Container, Row, Col, Button, Image, Form } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Image,
+  Form,
+  Card,
+} from "react-bootstrap";
 import Navbar from "./Navbar";
 
 const Home = () => {
@@ -9,12 +17,16 @@ const Home = () => {
 
   const getAnime = async (e) => {
     e.preventDefault();
-    const res = await fetch(
-      `https://api-aniwatch.onrender.com/anime/search?q=${anime}`
-    );
+    try {
+      const res = await fetch(
+        `https://api-aniwatch.onrender.com/anime/search?q=${anime}`
+      );
 
-    const data = await res.json();
-    setData(data.animes);
+      const data = await res.json();
+      setData(data.animes);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -50,23 +62,60 @@ const Home = () => {
         </Container>
 
         {data.length ? (
-          <Container className="mt-5">
+          <Container className="mt-3">
             <Row className="justify-content-center">
               {data.map((item) => (
                 <Col
+                  xs={6}
+                  sm={6}
                   md={3}
-                  sm={12}
                   lg={3}
-                  xl={3}
+                  xl={2}
                   className="mt-3 homeItem"
                   key={item.id}>
-                  <Link to={`/anime/${item.id}`}>
-                    <Image
-                      src={item.poster}
-                      fluid
-                      loading="lazy"
-                      className="mx-auto d-block"
-                    />
+                  <Link
+                    to={`/anime/${item.id}`}
+                    className="text-decoration-none text-white">
+                    <Card
+                      className="bg-dark text-white"
+                      style={{
+                        border: "none",
+                        height: "285px",
+                      }}>
+                      <Card.Img
+                        src={item.poster}
+                        alt={item.name}
+                        loading="lazy"
+                        className="mx-auto d-block"
+                        style={{
+                          height: "260px",
+                          objectFit: "cover",
+                        }}
+                      />
+                      <Card.ImgOverlay>
+                        <Card.Text className="d-flex justify-content-between">
+                          <Button variant="info" className="btn btn-sm">
+                            <i className="bi bi-badge-cc-fill"></i>{" "}
+                            {item.episodes.sub ? item.episodes.sub : "0"}
+                          </Button>
+                          <Button variant="warning" className="btn btn-sm ">
+                            {item.episodes.dub ? item.episodes.dub : "0"}
+                          </Button>
+                        </Card.Text>
+                      </Card.ImgOverlay>
+                      <Card.Text
+                        style={{
+                          fontSize: "12px",
+                          fontWeight: "bold",
+                          fontFamily: "sans-serif",
+                          textAlign: "center",
+                          marginTop: "2px",
+                        }}>
+                        {item.name.length < 23
+                          ? item.name
+                          : item.name.substr(0, 23) + "..."}
+                      </Card.Text>
+                    </Card>
                   </Link>
                 </Col>
               ))}
@@ -85,6 +134,8 @@ const Home = () => {
             </Row>
           </Container>
         )}
+
+        <hr className="mt-2" />
       </Row>
     </Container>
   );
