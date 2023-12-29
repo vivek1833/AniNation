@@ -17,7 +17,6 @@ const Episode = () => {
       );
       const jsonData = await response.json();
       setEpisode(jsonData.episodes);
-      console.log(jsonData);
     } catch (err) {
       console.error(err.message);
     }
