@@ -4,140 +4,136 @@ import {
   Container,
   Row,
   Col,
+  Navbar,
   Button,
   Image,
-  Form,
-  Card,
+  Carousel,
 } from "react-bootstrap";
-import Navbar from "./Navbar";
+import CardComponent from "./Card.jsx";
+import Footer from "./Footer.jsx";
+import { homePage } from "../utils/api.jsx";
 
 const Home = () => {
-  const [anime, setAnime] = useState([]);
   const [data, setData] = useState([]);
 
-  const getAnime = async (e) => {
-    e.preventDefault();
+  const getHomePage = async () => {
     try {
-      const res = await fetch(
-        `https://api-aniwatch.onrender.com/anime/search?q=${anime}`
-      );
-
-      const data = await res.json();
-      setData(data.animes);
+      const res = await homePage();
+      setData(res);
+      console.log(res);
     } catch (error) {
       console.error(error);
     }
   };
 
+  useEffect(() => {
+    getHomePage();
+  }, []);
+
   return (
-    <Container className="mt-5">
-      <Row>
-        <Container className="text-center">
-          <h1>AniPlay</h1>
+    <>
+      <Navbar
+        expand="lg"
+        variant="dark"
+        sticky="top"
+        style={{ backgroundColor: "#1a1a1a" }}>
+        <Container fluid>
+          <Navbar.Brand href="/">
+            <Image
+              src="/logo.jpg"
+              width="30"
+              height="30"
+              className="d-inline-block align-top mx-2  "
+              alt="AniPlay"
+            />
+            AniPlay
+          </Navbar.Brand>
+          <Navbar>
+            <Link to="/" className="btn btn-sm d-block ms-auto" role="button">
+              <Button variant="warning">Search</Button>
+            </Link>
+          </Navbar>
         </Container>
+      </Navbar>
 
-        <Navbar />
-
-        {/* Search Bar */}
-        <Container className="mt-4">
-          <Row className="justify-content-center">
-            <Col md={7} sm={12} lg={7} xl={7}>
-              <Form className="text-center">
-                <Form.Group>
-                  <Form.Control
-                    type="text"
-                    placeholder="Search Anime..."
-                    className="text-center my-2 border border-dark shadow p-2 bg-dark text-white rounded-pill"
-                    onChange={(e) => setAnime(e.target.value)}
-                  />
-                </Form.Group>
-                <Button
-                  variant="primary"
-                  type="submit"
-                  onClick={getAnime}
-                  className="d-none"></Button>
-              </Form>
-            </Col>
-          </Row>
+      {data.length === 0 ? (
+        <Container className="text-center mt-5">
+          <Container
+            className="spinner-border text-warning"
+            role="status"></Container>
         </Container>
-
-        {data.length ? (
-          <Container className="mt-3">
-            <Row className="justify-content-center">
-              {data.map((item) => (
-                <Col
-                  xs={6}
-                  sm={6}
-                  md={3}
-                  lg={3}
-                  xl={2}
-                  className="mt-3 homeItem"
-                  key={item.id}>
-                  <Link
-                    to={`/anime/${item.id}`}
-                    className="text-decoration-none text-white">
-                    <Card
-                      className="bg-dark text-white"
-                      style={{
-                        border: "none",
-                        height: "285px",
-                      }}>
-                      <Card.Img
-                        src={item.poster}
-                        alt={item.name}
-                        loading="lazy"
-                        className="mx-auto d-block"
-                        style={{
-                          height: "260px",
-                          objectFit: "cover",
-                        }}
-                      />
-                      <Card.ImgOverlay>
-                        <Card.Text className="d-flex justify-content-between">
-                          <Button variant="info" className="btn btn-sm">
-                            <i className="bi bi-badge-cc-fill"></i>{" "}
-                            {item.episodes.sub ? item.episodes.sub : "0"}
-                          </Button>
-                          <Button variant="warning" className="btn btn-sm ">
-                            {item.episodes.dub ? item.episodes.dub : "0"}
-                          </Button>
-                        </Card.Text>
-                      </Card.ImgOverlay>
-                      <Card.Text
-                        style={{
-                          fontSize: "12px",
-                          fontWeight: "bold",
-                          fontFamily: "sans-serif",
-                          textAlign: "center",
-                          marginTop: "2px",
-                        }}>
-                        {item.name.length < 23
-                          ? item.name
-                          : item.name.substr(0, 23) + "..."}
-                      </Card.Text>
-                    </Card>
-                  </Link>
-                </Col>
+      ) : (
+        <>
+          <Carousel fade>
+            {data.spotlightAnimes &&
+              data.spotlightAnimes.map((item) => (
+                <Carousel.Item key={item.id}>
+                  <Image src={item.poster} alt={item.name} loading="lazy" />
+                  <Carousel.Caption>
+                    <h3>{item.name}</h3>
+                    <p className="d-none d-md-block">
+                      {item.description.slice(0, 250)}...
+                    </p>
+                    <Link
+                      to={`/anime/${item.id}`}
+                      className="text-white text-decoration-none">
+                      <Button variant="warning">Watch Now</Button>
+                    </Link>
+                  </Carousel.Caption>
+                </Carousel.Item>
               ))}
-            </Row>
-          </Container>
-        ) : (
-          <Container>
-            <Row className="bgImg justify-content-center">
-              <Col md={5} sm={12} lg={5} xl={5}>
-                <Image
-                  src="https://s2.bunnycdn.ru/assets/t1/s1/imagesv3/bg-index-top1.png"
-                  fluid
-                  className="mx-auto d-block"
-                />
-              </Col>
-            </Row>
-          </Container>
-        )}
+          </Carousel>
 
-        <hr className="mt-2" />
-      </Row>
-    </Container>
+          <Container className="mt-5">
+            <h3>
+              <b className="text-warning">Trending</b>
+            </h3>
+            <CardComponent data={data.trendingAnimes} />
+
+            <hr />
+
+            <h3>
+              <b className="text-warning mt-5">Latest</b>
+            </h3>
+            <CardComponent data={data.latestEpisodeAnimes} />
+
+            <hr />
+
+            <h3>
+              <b className="text-warning mt-5">Top-Airing</b>
+            </h3>
+            <CardComponent data={data.topAiringAnimes} />
+
+            <hr />
+
+            <h3>
+              <b className="text-warning mt-5">Top-Upcoming</b>
+            </h3>
+            <CardComponent data={data.topUpcomingAnimes} />
+
+            <hr />
+
+            <h3>
+              <b className="text-warning mt-5">Genres</b>
+            </h3>
+            <Row>
+              {data.genres &&
+                data.genres.map((item) => (
+                  <Col className="mt-3" key={item}>
+                    <Link
+                      to={`/genre/${item}`}
+                      className="text-decoration-none text-white">
+                      <Button className="btn btn-sm ">{item}</Button>
+                    </Link>
+                  </Col>
+                ))}
+            </Row>
+          </Container>
+
+          <Footer />
+        </>
+      )}
+    </>
   );
 };
 

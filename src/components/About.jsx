@@ -5,8 +5,6 @@ import Navbar from "./Navbar";
 
 const About = () => {
   return (
-    // Will about the website and the creator
-    // Github link - vivek1833
     <>
       <Container className="mt-5">
         <Row>

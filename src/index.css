@@ -23,7 +23,16 @@ body {
 }
 
 .homeItem:hover {
-  transform:  scale(1.1);
+  transform: scale(1.1);
+}
+
+/* image to left and caption to right */
+.carousel img {
+  width: 100%;
+  height: 65vh;
+  object-fit: cover;
+  object-position: center;
+  right: 0;
 }
 
 /* VIDEO PLAYER */
@@ -45,4 +54,10 @@ body {
 }
 
 
-
+/* MEDIA QUERIES */
+@media (max-width: 768px) {
+  .carousel img {
+    width: 100%;
+    height: 50vh;
+  }
+}

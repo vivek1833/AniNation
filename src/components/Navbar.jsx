@@ -8,7 +8,7 @@ const Navbar = () => {
       <Container className="mt-3">
         <Row md="auto" className="justify-content-center text-center">
           <Col>
-            <Link to="/" className="text-white text-decoration-none">
+            <Link to="/home" className="text-white text-decoration-none">
               Home
             </Link>
           </Col>

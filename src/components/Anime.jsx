@@ -28,8 +28,10 @@ const Anime = () => {
         <Navbar />
         <hr />
         {loading ? (
-          <Container className="text-center">
-            <h1>Loading...</h1>
+          <Container className="text-center mt-5">
+            <Container
+              className="spinner-border text-warning"
+              role="status"></Container>
           </Container>
         ) : (
           <Container className="text-center">
@@ -39,19 +41,30 @@ const Anime = () => {
               </Col>
               <Col md={8} sm={12} lg={8} xl={8}>
                 <h1>{info.anime.info.name}</h1>
-                {/* Different for mobile and dekstop */}
                 <p className="d-none d-md-block">
                   {info.anime.info.description}
                 </p>
               </Col>
 
               <Col>
-                <Button variant="warning" className="m-2">
-                  <Link
-                    to={`/watch/${info.anime.info.id}`}
-                    className="text-white text-decoration-none">
+                <Link
+                  to={`/watch/${info.anime.info.id}`}
+                  className="text-decoration-none text-white">
+                  <Button variant="warning" className="m-2">
                     Watch Now
-                  </Link>
+                  </Button>
+                </Link>
+
+                <Button
+                  variant="warning"
+                  onClick={() => {
+                    localStorage.setItem(
+                      info.anime.info.id,
+                      JSON.stringify(info.anime.info)
+                    );
+                    alert("Added to watch later");
+                  }}>
+                  Watch later
                 </Button>
               </Col>
             </Row>
