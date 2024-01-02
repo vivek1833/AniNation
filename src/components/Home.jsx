@@ -17,14 +17,10 @@ const Home = () => {
   const [data, setData] = useState([]);
   const [list, setList] = useState([]);
 
-  // get from localstroage
   const getList = () => {
     try {
       const res = localStorage.getItem("list");
-      // convert to array
       setList(JSON.parse(res));
-      
-      
       console.log(res);
     } catch (error) {
       console.error(error);
@@ -42,7 +38,7 @@ const Home = () => {
 
   useEffect(() => {
     getList();
-    getHomePage();
+    // getHomePage();
   }, []);
 
   return (
@@ -131,7 +127,13 @@ const Home = () => {
             <h3>
               <b className="text-warning mt-5">Watch-Later List</b>
             </h3>
-            <CardComponent data={list} />
+            {list && list.length > 0 ? (
+              <CardComponent data={list} />
+            ) : (
+              <Container className="text-center mt-5">
+                <h4 className="text-warning">No Anime in Watch-Later List</h4>
+              </Container>
+            )}
 
             <h3>
               <b className="text-warning mt-5">Genres</b>

@@ -10,11 +10,14 @@ const Anime = () => {
   const [loading, setLoading] = useState(true);
 
   const addToWatchLater = () => {
+
     const list = localStorage.getItem("list")
-      ? (localStorage.getItem("list"))
+      ? JSON.parse(localStorage.getItem("list"))
       : [];
+
     list.push(info.anime.info);
-    localStorage.setItem("list", (list));
+    localStorage.setItem("list", JSON.stringify(list));
+        
     alert("Added to watch later");
   };
 
