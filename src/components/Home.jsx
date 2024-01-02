@@ -38,7 +38,7 @@ const Home = () => {
 
   useEffect(() => {
     getList();
-    // getHomePage();
+    getHomePage();
   }, []);
 
   return (
