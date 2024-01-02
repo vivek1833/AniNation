@@ -31,7 +31,7 @@ const About = () => {
               Vivek. It uses a API to get the data and then displays it on the
               website. API Link :
               <Link
-                to="https://github.com/ghoshRitesh12/aniwatch-api#get-genre-animes"
+                to="https://github.com/ghoshRitesh12/aniwatch-api"
                 className="text-decoration-none">
                 aniwatch-api
               </Link>

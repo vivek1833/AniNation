@@ -9,6 +9,15 @@ const Anime = () => {
   const [info, setInfo] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const addToWatchLater = () => {
+    const list = localStorage.getItem("list")
+      ? (localStorage.getItem("list"))
+      : [];
+    list.push(info.anime.info);
+    localStorage.setItem("list", (list));
+    alert("Added to watch later");
+  };
+
   useEffect(() => {
     const getAnime = async () => {
       const res = await fetch(
@@ -57,13 +66,8 @@ const Anime = () => {
 
                 <Button
                   variant="warning"
-                  onClick={() => {
-                    localStorage.setItem(
-                      info.anime.info.id,
-                      JSON.stringify(info.anime.info)
-                    );
-                    alert("Added to watch later");
-                  }}>
+                  onClick={addToWatchLater}
+                  className="m-2">
                   Watch later
                 </Button>
               </Col>

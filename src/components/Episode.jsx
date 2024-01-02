@@ -53,8 +53,8 @@ const Episode = () => {
                   episode.map((epis) => (
                     <Col key={epis.episodeId}>
                       <Link to={`/watch/${epis.episodeId}`}>
-                        <Button className="btn btn-secondary btn-sm mt-1">
-                          {epis.number} {". "} {epis.title}
+                        <Button className="btn btn-secondary btn-sm m-1">
+                          {epis.number}
                         </Button>
                       </Link>
                     </Col>

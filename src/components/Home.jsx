@@ -15,18 +15,33 @@ import { homePage } from "../utils/api.jsx";
 
 const Home = () => {
   const [data, setData] = useState([]);
+  const [list, setList] = useState([]);
 
-  const getHomePage = async () => {
+  // get from localstroage
+  const getList = () => {
     try {
-      const res = await homePage();
-      setData(res);
+      const res = localStorage.getItem("list");
+      // convert to array
+      setList(JSON.parse(res));
+      
+      
       console.log(res);
     } catch (error) {
       console.error(error);
     }
   };
 
+  const getHomePage = async () => {
+    try {
+      const res = await homePage();
+      setData(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
+    getList();
     getHomePage();
   }, []);
 
@@ -112,6 +127,11 @@ const Home = () => {
             <CardComponent data={data.topUpcomingAnimes} />
 
             <hr />
+
+            <h3>
+              <b className="text-warning mt-5">Watch-Later List</b>
+            </h3>
+            <CardComponent data={list} />
 
             <h3>
               <b className="text-warning mt-5">Genres</b>

@@ -54,6 +54,14 @@ body {
 }
 
 
+/* MOVIE PAGE */
+.page-link {
+  background-color: black;
+  font-family: sans-serif;
+  color: white;
+}
+
+
 /* MEDIA QUERIES */
 @media (max-width: 768px) {
   .carousel img {

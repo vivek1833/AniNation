@@ -13,13 +13,13 @@ const Navbar = () => {
             </Link>
           </Col>
           <Col>
-            <Link to="/trending" className="text-white text-decoration-none">
-              Trending
+            <Link to="/movie" className="text-white text-decoration-none">
+              Movie
             </Link>
           </Col>
           <Col>
-            <Link to="/latest" className="text-white text-decoration-none">
-              Latest
+            <Link to="/trending" className="text-white text-decoration-none">
+              Trending
             </Link>
           </Col>
           <Col>
