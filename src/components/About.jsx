@@ -9,7 +9,7 @@ const About = () => {
       <Container className="mt-5">
         <Row>
           <Container className="text-center">
-            <h1>AniPlay</h1>
+            <h1 className="display-4 text-bold">AniNation</h1>
           </Container>
         </Row>
 
@@ -25,7 +25,7 @@ const About = () => {
         <Row>
           <Col>
             <p className="text-center">
-              AniPlay is a website that allows you to watch anime for free. It
+              AniNation is a website that allows you to watch anime for free. It
               is a website that uses the AniWatch API to get the anime data and
               then displays it on the website. It is a website that is made by
               Vivek. It uses a API to get the data and then displays it on the

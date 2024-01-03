@@ -25,7 +25,7 @@ const Trending = () => {
       <Container className="mt-5">
         <Row>
           <Container className="text-center">
-            <h1>AniPlay</h1>
+            <h1 className="display-4 text-bold">AniNation</h1>
           </Container>
         </Row>
 
@@ -96,7 +96,7 @@ const Trending = () => {
             </Row>
           </Container>
         )}
-        <hr className="mt-2" />
+        <hr className="mt-5" />
       </Container>
     </>
   );

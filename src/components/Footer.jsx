@@ -13,10 +13,10 @@ const Footer = () => {
         <Row className="justify-content-center">
           <Col className="text-center">
             <p className="mt-3">
-              AniPlay does not store any files on our server, we only linked to
+              AniNation does not store any files on our server, we only linked to
               the media which is hosted on 3rd party services.
             </p>
-            <p>© AniPlay. All rights reserved.</p>
+            <p>© AniNation. All rights reserved.</p>
           </Col>
         </Row>
       </Container>

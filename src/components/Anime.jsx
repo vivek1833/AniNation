@@ -10,27 +10,36 @@ const Anime = () => {
   const [loading, setLoading] = useState(true);
 
   const addToWatchLater = () => {
-
     const list = localStorage.getItem("list")
       ? JSON.parse(localStorage.getItem("list"))
       : [];
 
     list.push(info.anime.info);
     localStorage.setItem("list", JSON.stringify(list));
-        
     alert("Added to watch later");
+    window.location.reload();
+  };
+
+  const removeFromWatchLater = () => {
+    const list = JSON.parse(localStorage.getItem("list"));
+
+    const newList = list.filter((anime) => anime.id !== info.anime.info.id);
+    localStorage.setItem("list", JSON.stringify(newList));
+    alert("Removed from watch later");
+    window.location.reload();
+  };
+
+  const getAnime = async () => {
+    const res = await fetch(
+      `https://api-aniwatch.onrender.com/anime/info?id=${title}`
+    );
+
+    const data = await res.json();
+    setInfo(data);
+    setLoading(false);
   };
 
   useEffect(() => {
-    const getAnime = async () => {
-      const res = await fetch(
-        `https://api-aniwatch.onrender.com/anime/info?id=${title}`
-      );
-
-      const data = await res.json();
-      setInfo(data);
-      setLoading(false);
-    };
     getAnime();
   }, [title]);
 
@@ -39,7 +48,7 @@ const Anime = () => {
       <Container className="mt-5">
         <Navbar />
         <hr />
-        {loading ? (
+        {info && info.length === 0 ? (
           <Container className="text-center mt-5">
             <Container
               className="spinner-border text-warning"
@@ -67,12 +76,24 @@ const Anime = () => {
                   </Button>
                 </Link>
 
-                <Button
-                  variant="warning"
-                  onClick={addToWatchLater}
-                  className="m-2">
-                  Watch later
-                </Button>
+                {localStorage.getItem("list") &&
+                JSON.parse(localStorage.getItem("list")).find(
+                  (anime) => anime.id === info.anime.info.id
+                ) ? (
+                  <Button
+                    variant="warning"
+                    className="m-2"
+                    onClick={removeFromWatchLater}>
+                    Remove from Watch Later
+                  </Button>
+                ) : (
+                  <Button
+                    variant="warning"
+                    onClick={addToWatchLater}
+                    className="m-2">
+                    Watch later
+                  </Button>
+                )}
               </Col>
             </Row>
 

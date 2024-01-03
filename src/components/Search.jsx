@@ -26,7 +26,7 @@ const Search = () => {
     <Container className="mt-5">
       <Row>
         <Container className="text-center">
-          <h1>AniPlay</h1>
+        <h1 className="display-4 text-bold">AniNation</h1>
         </Container>
 
         <Navbar />
@@ -75,7 +75,7 @@ const Search = () => {
           </Container>
         )}
 
-        <hr className="mt-2" />
+        <hr className="mt-5" />
       </Row>
     </Container>
   );

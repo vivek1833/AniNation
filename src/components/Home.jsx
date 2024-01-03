@@ -21,7 +21,6 @@ const Home = () => {
     try {
       const res = localStorage.getItem("list");
       setList(JSON.parse(res));
-      console.log(res);
     } catch (error) {
       console.error(error);
     }
@@ -49,19 +48,22 @@ const Home = () => {
         sticky="top"
         style={{ backgroundColor: "#1a1a1a" }}>
         <Container fluid>
-          <Navbar.Brand href="/">
+          <Navbar.Brand href="/" className="text-white head">
             <Image
-              src="/logo.jpg"
+              src="/logo.png"
               width="30"
               height="30"
-              className="d-inline-block align-top mx-2  "
-              alt="AniPlay"
+              className="d-inline-block align-top mx-2 head"
+              alt="AniNation"
+              loading="lazy"
             />
-            AniPlay
+            AniNation
           </Navbar.Brand>
           <Navbar>
-            <Link to="/" className="btn btn-sm d-block ms-auto" role="button">
-              <Button variant="warning">Search</Button>
+            <Link to="/" className="ms-auto">
+              <Button variant="warning" className="btn btn-sm">
+                Search
+              </Button>
             </Link>
           </Navbar>
         </Container>

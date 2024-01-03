@@ -18,7 +18,6 @@ const Movie = () => {
       setCurrentPage(res.currentPage);
       setTotalPage(res.totalPages);
       setHasNextPage(res.hasNextPage);
-      console.log(res);
     } catch (error) {
       console.error(error);
     }
@@ -33,7 +32,7 @@ const Movie = () => {
       <Container className="mt-5">
         <Row>
           <Container className="text-center">
-            <h1>AniPlay</h1>
+            <h1 className="display-4 text-bold">AniNation</h1>
           </Container>
         </Row>
 
@@ -100,6 +99,8 @@ const Movie = () => {
           </Container>
         )}
       </Container>
+
+      <hr className="mt-5" />
     </>
   );
 };
