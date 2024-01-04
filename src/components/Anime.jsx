@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Container, Row, Col, Button, Image } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Image,
+  ButtonGroup,
+} from "react-bootstrap";
 import Navbar from "./Navbar";
+import CardComponent from "./Card";
 
 const Anime = () => {
   const { title } = useParams();
-
   const [info, setInfo] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   const addToWatchLater = () => {
     const list = localStorage.getItem("list")
@@ -30,13 +36,16 @@ const Anime = () => {
   };
 
   const getAnime = async () => {
-    const res = await fetch(
-      `https://api-aniwatch.onrender.com/anime/info?id=${title}`
-    );
+    try {
+      const res = await fetch(
+        `https://api-aniwatch.onrender.com/anime/info?id=${title}`
+      );
 
-    const data = await res.json();
-    setInfo(data);
-    setLoading(false);
+      const data = await res.json();
+      setInfo(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -57,17 +66,66 @@ const Anime = () => {
         ) : (
           <Container className="text-center">
             <Row>
+              <h1 className="text-white mb-3">{info.anime.info.name}</h1>
               <Col md={4} sm={12} lg={4} xl={4}>
-                <Image src={info.anime.info.poster} fluid />
+                <Image
+                  fluid
+                  src={info.anime.info.poster}
+                  alt={info.anime.info.name}
+                />
+                <Container className="mt-3">
+                  <ButtonGroup size="sm">
+                    <Button
+                      variant="info"
+                      className="btn btn-sm"
+                      style={{
+                        cursor: "text",
+                      }}>
+                      <i className="bi bi-badge-cc-fill"></i>{" "}
+                      {info.anime.info.stats.episodes.sub
+                        ? info.anime.info.stats.episodes.sub
+                        : "0"}
+                    </Button>
+                    <Button
+                      variant="warning"
+                      className="btn btn-sm "
+                      style={{
+                        cursor: "text",
+                      }}>
+                      <i className="bi bi-mic-fill"></i>{" "}
+                      {info.anime.info.stats.episodes.dub
+                        ? info.anime.info.stats.episodes.dub
+                        : "0"}
+                    </Button>
+
+                    <Button
+                      variant="danger"
+                      className="btn btn-sm"
+                      style={{
+                        cursor: "text",
+                      }}>
+                      <i className="bi bi-star-fill text-warning"></i>{" "}
+                      {info.anime.moreInfo.malscore}
+                    </Button>
+                  </ButtonGroup>
+                  <Button
+                    variant="secondary"
+                    className="btn btn-sm"
+                    style={{
+                      cursor: "text",
+                    }}>
+                    <i className="bi bi-tv-fill"></i>{" "}
+                    {info.anime.moreInfo.status}
+                  </Button>
+                </Container>
               </Col>
               <Col md={8} sm={12} lg={8} xl={8}>
-                <h1>{info.anime.info.name}</h1>
                 <p className="d-none d-md-block">
                   {info.anime.info.description}
                 </p>
               </Col>
 
-              <Col>
+              <Col className="mt-3">
                 <Link
                   to={`/watch/${info.anime.info.id}`}
                   className="text-decoration-none text-white">
@@ -81,17 +139,17 @@ const Anime = () => {
                   (anime) => anime.id === info.anime.info.id
                 ) ? (
                   <Button
-                    variant="warning"
+                    variant="light"
                     className="m-2"
                     onClick={removeFromWatchLater}>
-                    Remove from Watch Later
+                    <i className="bi bi-heart-fill text-danger"></i>
                   </Button>
                 ) : (
                   <Button
-                    variant="warning"
+                    variant="light"
                     onClick={addToWatchLater}
                     className="m-2">
-                    Watch later
+                    <i className="bi bi-heart text-danger"></i>
                   </Button>
                 )}
               </Col>
@@ -100,19 +158,19 @@ const Anime = () => {
             <Row>
               <Col>
                 {info.seasons.length !== 0 ? (
-                  <h3>More Season of {info.anime.info.name}</h3>
+                  <>
+                    <hr />
+                    <h3>More Season of {info.anime.info.name}</h3>
+                    <CardComponent data={info.seasons} />
+                  </>
                 ) : (
                   ""
                 )}
-                {info.seasons.map((anime) => (
-                  <Link to={`/anime/${anime.id}`} key={anime.id}>
-                    <Image src={anime.poster} fluid className="m-2" />
-                  </Link>
-                ))}
               </Col>
             </Row>
           </Container>
         )}
+        <hr className="mt-5" />
       </Container>
     </>
   );

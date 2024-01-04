@@ -35,7 +35,15 @@ const Episode = () => {
 
         <Row>
           <Col xs={12} sm={12} md={10} lg={10}>
-            {ep ? <Video id={title + ep} /> : ""}
+            {ep ? (
+              <Video id={title + ep} />
+            ) : (
+              <>
+                <Container className="mt-3">
+                  <h4 className="text-center text-danger mt-5">Select Episode</h4>
+                </Container>
+              </>
+            )}
           </Col>
           <Col xs={12} sm={12} md={2} lg={2}>
             <Container
@@ -48,18 +56,14 @@ const Episode = () => {
                 borderRadius: "5px",
                 scrollbarWidth: "thin",
               }}>
-              <Row>
-                {episode &&
-                  episode.map((epis) => (
-                    <Col key={epis.episodeId}>
-                      <Link to={`/watch/${epis.episodeId}`}>
-                        <Button className="btn btn-secondary btn-sm m-1">
-                          {epis.number}
-                        </Button>
-                      </Link>
-                    </Col>
-                  ))}
-              </Row>
+              {episode &&
+                episode.map((epis) => (
+                  <Link to={`/watch/${epis.episodeId}`} key={epis.episodeId}>
+                    <Button className="btn btn-secondary btn-sm m-1">
+                      {epis.number}
+                    </Button>
+                  </Link>
+                ))}
             </Container>
           </Col>
         </Row>

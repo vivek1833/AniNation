@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  Container,
-  Row,
-  Col,
-  Navbar,
-  Button,
-  Image,
-  Carousel,
-} from "react-bootstrap";
+import { Container, Navbar, Button, Image, Carousel } from "react-bootstrap";
 import CardComponent from "./Card.jsx";
 import Footer from "./Footer.jsx";
 import { homePage } from "../utils/api.jsx";
@@ -62,7 +54,7 @@ const Home = () => {
           <Navbar>
             <Link to="/" className="ms-auto">
               <Button variant="warning" className="btn btn-sm">
-                Search
+                <i className="bi bi-search"></i> Search
               </Button>
             </Link>
           </Navbar>
@@ -133,25 +125,27 @@ const Home = () => {
               <CardComponent data={list} />
             ) : (
               <Container className="text-center mt-5">
-                <h4 className="text-warning">No Anime in Watch-Later List</h4>
+                <h4 className="text-warning">
+                  <i className="bi bi-emoji-frown-fill text-warning"></i> No
+                  Anime in Watch Later
+                </h4>
               </Container>
             )}
+
+            <hr />
 
             <h3>
               <b className="text-warning mt-5">Genres</b>
             </h3>
-            <Row>
-              {data.genres &&
-                data.genres.map((item) => (
-                  <Col className="mt-3" key={item}>
-                    <Link
-                      to={`/genre/${item}`}
-                      className="text-decoration-none text-white">
-                      <Button className="btn btn-sm ">{item}</Button>
-                    </Link>
-                  </Col>
-                ))}
-            </Row>
+            {data.genres &&
+              data.genres.map((item) => (
+                <Link
+                  key={item}
+                  to={`/genre/${item}`}
+                  className="text-decoration-none text-white">
+                  <Button className="btn btn-sm m-1">{item}</Button>
+                </Link>
+              ))}
           </Container>
 
           <Footer />

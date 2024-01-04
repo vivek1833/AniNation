@@ -44,50 +44,71 @@ const Movie = () => {
           </Col>
         </Row>
 
-        <hr className="mt-2" />
         {data && data.animes ? (
           <>
             <CardComponent data={data.animes} />
 
-            <Container className="text-center">
-              <Pagination className="justify-content-center">
-                <Pagination.First
-                  onClick={() => {
-                    setPage(1);
-                  }}
-                />
-                <Pagination.Prev
-                  onClick={() => {
-                    if (page > 1) {
-                      setPage(page - 1);
-                    }
-                  }}
-                />
-                <Pagination.Item
-                  onClick={() => {
-                    setPage(page - 1);
-                  }}>
-                  {page - 1}
-                </Pagination.Item>
+            <Container className="text-center mt-3">
+              <Pagination
+                className="justify-content-center text-warning"
+                size="sm">
+                {page > 1 && currentPage > 1 ? (
+                  <>
+                    <Pagination.First
+                      onClick={() => {
+                        setPage(1);
+                      }}
+                    />
+                    <Pagination.Prev
+                      onClick={() => {
+                        if (page > 1 && currentPage > 1) {
+                          setPage(page - 1);
+                        }
+                      }}
+                    />
+
+                    <Pagination.Item
+                      onClick={() => {
+                        if (page > 1 && currentPage > 1) {
+                          setPage(page - 1);
+                        }
+                      }}>
+                      {page - 1}
+                    </Pagination.Item>
+                  </>
+                ) : (
+                  ""
+                )}
+
                 <Pagination.Item active>{page}</Pagination.Item>
-                <Pagination.Item
-                  onClick={() => {
-                    setPage(page + 1);
-                  }}>
-                  {page + 1}
-                </Pagination.Item>
-                <Pagination.Next
-                  onClick={() => {
-                    if (hasNextPage) {
-                      setPage(page + 1);
-                    }
-                  }}
-                />
-                <Pagination.Last
-                  onClick={() => {
-                    setPage(totalPage);
-                  }}
-                />
+
+                {hasNextPage && currentPage < totalPage ? (
+                  <>
+                    <Pagination.Item
+                      onClick={() => {
+                        if (hasNextPage) {
+                          setPage(page + 1);
+                        }
+                      }}>
+                      {page + 1}
+                    </Pagination.Item>
+
+                    <Pagination.Next
+                      onClick={() => {
+                        if (hasNextPage) {
+                          setPage(page + 1);
+                        }
+                      }}
+                    />
+                    <Pagination.Last
+                      onClick={() => {
+                        setPage(totalPage);
+                      }}
+                    />
+                  </>
+                ) : (
+                  ""
+                )}
               </Pagination>
             </Container>
           </>
@@ -98,9 +119,9 @@ const Movie = () => {
               role="status"></Container>
           </Container>
         )}
-      </Container>
 
-      <hr className="mt-5" />
+        <hr className="mt-5" />
+      </Container>
     </>
   );
 };
