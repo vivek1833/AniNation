@@ -28,7 +28,10 @@ const Genre = () => {
       <Container className="mt-5">
         <Row>
           <Container className="text-center">
-            <h1 className="head">AniNation</h1>
+            <h1 className="display-4 text-bold">
+              <span className="text-warning">Ani</span>
+              Nation
+            </h1>
           </Container>
 
           <Navbar />

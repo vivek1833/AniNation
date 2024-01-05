@@ -21,7 +21,7 @@ const CardComponent = ({ data }) => {
                   to={`/anime/${item.id}`}
                   className="text-decoration-none text-white">
                   <Card
-                    className="bg-dark text-white"
+                    className="bg-dark text-white card"
                     style={{
                       border: "none",
                       height: "285px",

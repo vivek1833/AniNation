@@ -40,16 +40,17 @@ const Home = () => {
         sticky="top"
         style={{ backgroundColor: "#1a1a1a" }}>
         <Container fluid>
-          <Navbar.Brand href="/" className="text-white head">
+          <Navbar.Brand href="/" className="text-white head text-bold">
             <Image
               src="/logo.png"
               width="30"
               height="30"
-              className="d-inline-block align-top mx-2 head"
+              className="d-inline-block align-top mx-2"
               alt="AniNation"
               loading="lazy"
             />
-            AniNation
+            <span className="text-warning">Ani</span>
+            Nation
           </Navbar.Brand>
           <Navbar>
             <Link to="/" className="ms-auto">
@@ -75,7 +76,7 @@ const Home = () => {
                 <Carousel.Item key={item.id}>
                   <Image src={item.poster} alt={item.name} loading="lazy" />
                   <Carousel.Caption>
-                    <h3>{item.name}</h3>
+                    <h3 className="text-bold">{item.name}</h3>
                     <p className="d-none d-md-block">
                       {item.description.slice(0, 250)}...
                     </p>
