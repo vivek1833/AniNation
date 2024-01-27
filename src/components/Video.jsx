@@ -1,27 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import ReactHlsPlayer from "react-hls-player";
+import { getLink } from "../utils/api";
 
 const Video = (props) => {
   const [link, setLink] = useState([]);
   const [sub, setSub] = useState([]);
 
   // Get a particular episode
-  const getLink = async () => {
-    try {
-      const response = await fetch(
-        `https://api-aniwatch.onrender.com/anime/episode-srcs?id=${props.id}&server=vidstreaming&category=sub`
-      );
-      const jsonData = await response.json();
-      setLink(jsonData.sources);
-      setSub(jsonData.subtitles);
-    } catch (err) {
-      console.error(err.message);
-    }
+  const getVideo = async () => {
+    const res = await getLink({ id: props.id });
+    console.log(res);
+    setLink(res.sources);
+    setSub(res.subtitles);
   };
 
   useEffect(() => {
-    getLink();
+    getVideo();
   }, [props.id]);
 
   return (

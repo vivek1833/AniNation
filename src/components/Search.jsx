@@ -2,24 +2,16 @@ import React, { useState } from "react";
 import { Container, Row, Col, Button, Image, Form } from "react-bootstrap";
 import Navbar from "./Navbar";
 import CardComponent from "./Card";
+import { getSearch } from "../utils/api";
 
 const Search = () => {
   const [anime, setAnime] = useState([]);
   const [data, setData] = useState([]);
 
-  const getAnime = async (e) => {
+  const searchAnime = async (e) => {
     e.preventDefault();
-    try {
-      const res = await fetch(
-        `https://api-aniwatch.onrender.com/anime/search?q=${anime}`
-      );
-
-      const data = await res.json();
-      setData(data.animes);
-      setAnime("");
-    } catch (error) {
-      console.error(error);
-    }
+    const res = await getSearch({ anime });
+    setData(res);
   };
 
   return (
@@ -53,7 +45,7 @@ const Search = () => {
                 <Button
                   variant="primary"
                   type="submit"
-                  onClick={(e) => getAnime(e)}
+                  onClick={(e) => searchAnime(e)}
                   className="d-none"></Button>
               </Form>
             </Col>

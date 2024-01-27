@@ -10,6 +10,7 @@ import {
 } from "react-bootstrap";
 import Navbar from "./Navbar";
 import CardComponent from "./Card";
+import { getAnime } from "../utils/api";
 
 const Anime = () => {
   const { title } = useParams();
@@ -35,21 +36,13 @@ const Anime = () => {
     window.location.reload();
   };
 
-  const getAnime = async () => {
-    try {
-      const res = await fetch(
-        `https://api-aniwatch.onrender.com/anime/info?id=${title}`
-      );
-
-      const data = await res.json();
-      setInfo(data);
-    } catch (error) {
-      console.error(error);
-    }
+  const getAnimeInfo = async () => {
+    const res = await getAnime({ title });
+    setInfo(res);
   };
 
   useEffect(() => {
-    getAnime();
+    getAnimeInfo();
   }, [title]);
 
   return (

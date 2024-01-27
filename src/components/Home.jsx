@@ -19,12 +19,8 @@ const Home = () => {
   };
 
   const getHomePage = async () => {
-    try {
-      const res = await homePage();
-      setData(res);
-    } catch (error) {
-      console.error(error);
-    }
+    const res = await homePage();
+    setData(res);
   };
 
   useEffect(() => {

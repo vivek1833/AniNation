@@ -3,6 +3,7 @@ import { Link, useParams, useLocation } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import Video from "./Video";
 import Navbar from "./Navbar";
+import { getEpisode } from "../utils/api";
 
 const Episode = () => {
   const { title } = useParams();
@@ -10,20 +11,13 @@ const Episode = () => {
   const [episode, setEpisode] = useState([]);
 
   // Get Total Anime Episodes
-  const getEpisode = async () => {
-    try {
-      const response = await fetch(
-        `https://api-aniwatch.onrender.com/anime/episodes/${title}`
-      );
-      const jsonData = await response.json();
-      setEpisode(jsonData.episodes);
-    } catch (err) {
-      console.error(err.message);
-    }
+  const episodeList = async () => {
+    const res = await getEpisode({ title });
+    setEpisode(res);
   };
 
   useEffect(() => {
-    getEpisode();
+    episodeList();
   }, []);
 
   return (
@@ -40,7 +34,9 @@ const Episode = () => {
             ) : (
               <>
                 <Container className="mt-3">
-                  <h4 className="text-center text-danger mt-5">Select Episode</h4>
+                  <h4 className="text-center text-danger mt-5">
+                    Select Episode
+                  </h4>
                 </Container>
               </>
             )}

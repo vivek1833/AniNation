@@ -2,18 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
+import { homePage } from "../utils/api";
 
 const Trending = () => {
   const [anime, setAnime] = useState([]);
-
+  
   const gettrendingAnimes = async () => {
-    try {
-      const res = await fetch(`https://api-aniwatch.onrender.com/anime/home`);
-      const data = await res.json();
-      setAnime(data.trendingAnimes);
-    } catch (error) {
-      console.error(error);
-    }
+    const res = await homePage();
+    setAnime(res.trendingAnimes);
   };
 
   useEffect(() => {
